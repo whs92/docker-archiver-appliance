@@ -1,9 +1,9 @@
-# Docker-Compose Deployment of Archiver Appliance with Example IOC
+# Docker-Compose Deployment of Archiver Appliance
 
 This respository in an example deployment of
-my Docker image of the EPICS Archiver Appliance
+P.Klaus Docker image of the EPICS Archiver Appliance
 (on [Docker Hub][] and on [Github][])
-bundled together with an EPICS example IOC and a Redis database.
+bundled together with a Redis database.
 
 Redis is used for the persistance of the appliance configuration,
 see the [RedisPersistence class][].
@@ -15,7 +15,7 @@ Data is stored in ./storage/{sts,mts,lts} mounted from the host.
 Run:
 
 ```
-docker-compose up
+docker-compose up -d
 ```
 
 In a browser, open <http://localhost:17665/mgmt/ui/index.html>.
@@ -29,36 +29,6 @@ just refresh the page after a couple of seconds:
 On this home page of the archiver appliance, you can add the PVs
 served by the example IOC by entering the following lines
 in the input field and then clicking the `[Archive]` button:
-
-```
-root:subExample
-root:xxxExample
-root:aSubExample
-root:circle:tick
-root:circle:step
-root:circle:period
-root:line:b
-root:aiExample
-root:aiExample1
-root:ai1
-root:aiExample2
-root:ai2
-root:aiExample3
-root:ai3
-root:EXAMPLE:version
-root:compressExample
-root:circle:angle
-root:line:a
-root:circle:x
-root:circle:y
-root:calcExample
-root:calcExample1
-root:calc1
-root:calcExample2
-root:calc2
-root:calcExample3
-root:calc3
-```
 
 [RedisPersistence class]: https://slacmshankar.github.io/epicsarchiver_docs/api/org/epics/archiverappliance/config/persistence/RedisPersistence.html
 [Docker Hub]: https://hub.docker.com/r/pklaus/archiver-appliance
