@@ -1,12 +1,12 @@
 version: '3'
 services:
-  archappl:
-    hostname: archappl
-    image: pklaus/archiver-appliance
+  
+
+  archappl_retrieval:
+    hostname: archappl_retrieval
+    image:  archappl/archiver:1.4
     network_mode: host
-    # ^ no, we need to link this container to our example-ioc and redis-db containers
-    ports:
-     - "17665:17665"
+
     # https://docs.docker.com/compose/compose-file/#volumes
     volumes:
      - ./storage/sts:/storage/sts
@@ -15,13 +15,100 @@ services:
      - ./storage/logs:/storage/logs
     stdin_open: true
     tty: true
-    #entrypoint: /bin/bash /opt/archappl/scripts/start.sh
+    entrypoint: /bin/bash
+    command: "catalina.sh run"
     environment:
-      ARCHAPPL_ALL_APPS_ON_ONE_JVM: "true"
-      EPICS_CA_ADDR_LIST: "172.17.9.23"
+      #ARCHAPPL_ALL_APPS_ON_ONE_JVM: "true"
+      #EPICS_CA_ADDR_LIST: "172.17.9.23"
       #EPICS_CA_AUTO_ADDR_LIST: "no"
       ARCHAPPL_PERSISTENCE_LAYER: "org.epics.archiverappliance.config.persistence.RedisPersistence"
       ARCHAPPL_PERSISTENCE_LAYER_REDISURL: "localhost"
+      CATALINA_HOME: /usr/local/tomcat/
+      CATALINA_BASE: /etc/archappl/tomcats/retrieval
+    depends_on:
+     - redis-db
+     - archappl_mgmt
+     - archappl_engine
+     - archappl_etl
+
+  archappl_etl:
+    hostname: archappl_etl
+    image:  archappl/archiver:1.4
+    network_mode: host
+
+    # https://docs.docker.com/compose/compose-file/#volumes
+    volumes:
+     - ./storage/sts:/storage/sts
+     - ./storage/mts:/storage/mts
+     - ./storage/lts:/storage/lts
+     - ./storage/logs:/storage/logs
+    stdin_open: true
+    tty: true
+    entrypoint: /bin/bash
+    command: "catalina.sh run"
+    environment:
+      #ARCHAPPL_ALL_APPS_ON_ONE_JVM: "true"
+      #EPICS_CA_ADDR_LIST: "172.17.9.23"
+      #EPICS_CA_AUTO_ADDR_LIST: "no"
+      ARCHAPPL_PERSISTENCE_LAYER: "org.epics.archiverappliance.config.persistence.RedisPersistence"
+      ARCHAPPL_PERSISTENCE_LAYER_REDISURL: "localhost"
+      CATALINA_HOME: /usr/local/tomcat/
+      CATALINA_BASE: /etc/archappl/tomcats/etl
+    depends_on:
+     - redis-db
+     - archappl_mgmt
+     - archappl_engine
+
+  archappl_engine:
+    hostname: archappl_engine
+    image:  archappl/archiver:1.4
+    network_mode: host
+
+    # https://docs.docker.com/compose/compose-file/#volumes
+    volumes:
+     - ./storage/sts:/storage/sts
+     - ./storage/mts:/storage/mts
+     - ./storage/lts:/storage/lts
+     - ./storage/logs:/storage/logs
+    stdin_open: true
+    tty: true
+    entrypoint: /bin/bash
+    command: "catalina.sh run"
+    environment:
+      #ARCHAPPL_ALL_APPS_ON_ONE_JVM: "true"
+      #EPICS_CA_ADDR_LIST: "172.17.9.23"
+      #EPICS_CA_AUTO_ADDR_LIST: "no"
+      ARCHAPPL_PERSISTENCE_LAYER: "org.epics.archiverappliance.config.persistence.RedisPersistence"
+      ARCHAPPL_PERSISTENCE_LAYER_REDISURL: "localhost"
+      CATALINA_HOME: /usr/local/tomcat/
+      CATALINA_BASE: /etc/archappl/tomcats/engine
+    depends_on:
+     - redis-db
+     - archappl_mgmt
+
+  archappl_mgmt:
+    hostname: archappl_mgmt
+    image:  archappl/archiver:1.4
+    network_mode: host
+
+    # https://docs.docker.com/compose/compose-file/#volumes
+    volumes:
+     - ./storage/sts:/storage/sts
+     - ./storage/mts:/storage/mts
+     - ./storage/lts:/storage/lts
+     - ./storage/logs:/storage/logs
+    stdin_open: true
+    tty: true
+    entrypoint: /bin/bash
+    command: "catalina.sh run"
+    environment:
+      #ARCHAPPL_ALL_APPS_ON_ONE_JVM: "true"
+      #EPICS_CA_ADDR_LIST: "172.17.9.23"
+      #EPICS_CA_AUTO_ADDR_LIST: "no"
+      ARCHAPPL_PERSISTENCE_LAYER: "org.epics.archiverappliance.config.persistence.RedisPersistence"
+      ARCHAPPL_PERSISTENCE_LAYER_REDISURL: "localhost"
+      CATALINA_HOME: /usr/local/tomcat/
+      CATALINA_BASE: /etc/archappl/tomcats/mgmt
     depends_on:
      - redis-db
     
