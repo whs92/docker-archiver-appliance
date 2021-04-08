@@ -4,7 +4,7 @@ services:
 
   archappl_retrieval:
     hostname: archappl_retrieval
-    image:  archappl/archiver:1.4
+    image:  archappl/archiver:1.5
     network_mode: host
 
     # https://docs.docker.com/compose/compose-file/#volumes
@@ -33,7 +33,7 @@ services:
 
   archappl_etl:
     hostname: archappl_etl
-    image:  archappl/archiver:1.4
+    image:  archappl/archiver:1.5
     network_mode: host
 
     # https://docs.docker.com/compose/compose-file/#volumes
@@ -61,7 +61,7 @@ services:
 
   archappl_engine:
     hostname: archappl_engine
-    image:  archappl/archiver:1.4
+    image:  archappl/archiver:1.5
     network_mode: host
 
     # https://docs.docker.com/compose/compose-file/#volumes
@@ -88,7 +88,7 @@ services:
 
   archappl_mgmt:
     hostname: archappl_mgmt
-    image:  archappl/archiver:1.4
+    image:  archappl/archiver:1.5
     network_mode: host
 
     # https://docs.docker.com/compose/compose-file/#volumes
