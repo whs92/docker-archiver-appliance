@@ -2,7 +2,6 @@
 
 This respository in an example deployment of
 W.Smith Docker image of the EPICS Archiver Appliance
-(on [Docker Hub][] and on [Github][])
 bundled together with a Redis database. Each appliance is in it's own container. This deployment is based heavily on work by P.Klaus
 
 Redis is used for the persistance of the appliance configuration,
