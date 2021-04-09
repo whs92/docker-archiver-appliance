@@ -1,9 +1,9 @@
 # Docker-Compose Deployment of Archiver Appliance
 
 This respository in an example deployment of
-P.Klaus Docker image of the EPICS Archiver Appliance
+W.Smith Docker image of the EPICS Archiver Appliance
 (on [Docker Hub][] and on [Github][])
-bundled together with a Redis database.
+bundled together with a Redis database. Each appliance is in it's own container.
 
 Redis is used for the persistance of the appliance configuration,
 see the [RedisPersistence class][].
@@ -12,6 +12,7 @@ Data is stored in ./storage/{sts,mts,lts} mounted from the host.
 
 ### Usage
 
+Modify the [docker image](https://github.com/whs92/docker-archiver-image) for your IP address and build it.
 Run:
 
 ```
